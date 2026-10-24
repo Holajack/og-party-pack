@@ -55,10 +55,9 @@ fetch('/api/pack')
   .catch(() => {});
 
 // Free hosting plans can go to sleep when they see no web requests for a while,
-// even with a game running. A tiny request every few minutes keeps it awake.
-setInterval(() => {
-  if (started) fetch('/healthz', { cache: 'no-store' }).catch(() => {});
-}, 4 * 60 * 1000);
+// even with a game running. While this page is open (even before anyone
+// clicks Start), a tiny request every few minutes keeps the server awake.
+setInterval(() => fetch('/healthz', { cache: 'no-store' }).catch(() => {}), 4 * 60 * 1000);
 
 function splash(force = false) {
   document.body.dataset.theme = 'lobby';

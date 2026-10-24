@@ -85,15 +85,26 @@ Phones can then join from anywhere, on Wi-Fi or cell data.
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
    - **Instance Type**: Free
+   - Under **Advanced**, set **Health Check Path** to `/healthz` (optional)
 4. Click **Create Web Service**. After a few minutes you'll get an address like
    `https://og-party-pack.onrender.com`. The big screen is
    `https://og-party-pack.onrender.com/host`, and phones just go to
    `https://og-party-pack.onrender.com`.
 
-Free Render services go to sleep after about 15 minutes without visitors. The
-first visit after that takes up to a minute to load, so **open the big-screen
-page a few minutes before people arrive**. While the big screen is open it keeps
-the server awake.
+How the free plan behaves:
+
+- After about 15 minutes with nobody visiting, the server goes to sleep. Nothing
+  is lost; it just isn't running.
+- The next visit wakes it. That first load takes up to a minute (Render shows a
+  loading screen), then it's normal speed.
+- So on game night, **open the big-screen page a few minutes before people
+  arrive**. As long as that page stays open it keeps the server awake, even
+  before you click Start, and for the whole night.
+- Free accounts get 750 running hours a month, and a sleeping server uses none.
+  A few game nights a month uses a tiny fraction.
+- When new code is pushed to the branch, Render redeploys and restarts the
+  server, which ends any game in progress. Don't push updates during a game
+  night.
 
 ### Option B: run it on the laptop (no internet needed)
 
