@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OG Party Pack · Big Screen</title>
+    <meta name="description" content="The big-screen side of the OG Party Pack. Put this on the projector." />
+    <link rel="icon" href="/img/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/host.css" />
+  </head>
+  <body data-theme="lobby">
+    <div class="backdrop" aria-hidden="true"><i></i><i></i><i></i></div>
+    <main id="app"></main>
+    <div id="timer" class="timer" hidden>
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="track" cx="50" cy="50" r="44" />
+        <circle class="fill" cx="50" cy="50" r="44" pathLength="100" />
+      </svg>
+      <span class="secs"></span>
+    </div>
+    <div id="veil" class="paused-veil" hidden><div class="card pop"><h2>Paused</h2><p>Press Resume (or P) when you’re ready.</p></div></div>
+    <div id="hud" class="hud"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/js/host.js"></script>
+  </body>
+</html>

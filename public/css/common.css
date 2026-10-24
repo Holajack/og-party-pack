@@ -1,0 +1,254 @@
+/* Shared look for the big screen and the phones. */
+
+:root {
+  --ink: #1b1035;
+  --ink-soft: #3d2f63;
+  --paper: #fffaf2;
+  --muted: #7a6d98;
+  --line: rgba(27, 16, 53, 0.14);
+  --good: #16a34a;
+  --good-bg: #dcfce7;
+  --bad: #e11d48;
+  --bad-bg: #ffe4e6;
+  --gold: #ffc53d;
+  --silver: #cbd5e1;
+  --bronze: #e0a36b;
+
+  /* Per-game colors (overridden by data-theme below). */
+  --a1: #ff7a3d;
+  --a2: #ff4d8d;
+  --a3: #7c3aed;
+
+  --c-a: #8b5cf6;
+  --c-b: #fb7185;
+  --c-c: #14b8a6;
+  --c-d: #f59e0b;
+
+  --display: 'Fredoka', 'Baloo 2', 'Arial Rounded MT Bold', ui-rounded, system-ui, sans-serif;
+  --body: 'Nunito', ui-rounded, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+[data-theme='realornot'] { --a1: #22c55e; --a2: #0ea5e9; --a3: #065f46; }
+[data-theme='bluff'] { --a1: #a855f7; --a2: #6366f1; --a3: #3b0764; }
+[data-theme='whosaid'] { --a1: #3b82f6; --a2: #06b6d4; --a3: #1e3a8a; }
+[data-theme='whichbook'] { --a1: #f59e0b; --a2: #ef4444; --a3: #7c2d12; }
+[data-theme='timeline'] { --a1: #14b8a6; --a2: #84cc16; --a3: #134e4a; }
+[data-theme='draw'] { --a1: #ec4899; --a2: #f97316; --a3: #831843; }
+[data-theme='laughs'] { --a1: #f97316; --a2: #facc15; --a3: #7c2d12; }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--a3);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* The animated party background. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 10% 0%, var(--a1) 0%, transparent 55%),
+    radial-gradient(110% 90% at 100% 100%, var(--a2) 0%, transparent 55%),
+    var(--a3);
+  transition: background 0.6s ease;
+}
+
+.backdrop::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1.5px, transparent 1.6px);
+  background-size: 28px 28px;
+  animation: drift 60s linear infinite;
+}
+
+.backdrop i {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  animation: float 18s ease-in-out infinite;
+}
+
+.backdrop i:nth-child(1) { width: 34vmin; height: 34vmin; left: -8vmin; top: 55%; }
+.backdrop i:nth-child(2) { width: 22vmin; height: 22vmin; right: 6%; top: -6vmin; animation-delay: -6s; }
+.backdrop i:nth-child(3) { width: 14vmin; height: 14vmin; left: 45%; bottom: -5vmin; animation-delay: -11s; border-radius: 30%; }
+
+@keyframes drift {
+  to { transform: translate(28px, 28px); }
+}
+
+@keyframes float {
+  50% { transform: translateY(-4vmin) rotate(12deg); }
+}
+
+/* Avatars: an emoji on a colored disc. */
+.avatar {
+  --c: #888;
+  display: inline-grid;
+  place-items: center;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 50%;
+  background: var(--c);
+  border: 0.14em solid var(--ink);
+  box-shadow: 0 0.12em 0 var(--ink);
+  font-size: 1em;
+  line-height: 1;
+  flex: none;
+}
+
+.avatar.sm { width: 1.9em; height: 1.9em; font-size: 0.85em; }
+.avatar.off { filter: grayscale(1) opacity(0.45); }
+
+/* Chunky "sticker" buttons. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border: 0.15em solid var(--ink);
+  border-radius: 999px;
+  padding: 0.55em 1.3em;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 600;
+  box-shadow: 0 0.22em 0 var(--ink);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+  transform: translateY(0.18em);
+  box-shadow: 0 0.04em 0 var(--ink);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+  box-shadow: 0 0.22em 0 var(--ink);
+}
+
+.btn.primary { background: var(--gold); }
+.btn.dark { background: var(--ink); color: #fff; box-shadow: 0 0.22em 0 rgba(0, 0, 0, 0.45); border-color: var(--ink); }
+.btn.ghost { background: rgba(255, 255, 255, 0.16); color: #fff; border-color: rgba(255, 255, 255, 0.7); box-shadow: none; }
+
+.card {
+  background: var(--paper);
+  border: 0.15em solid var(--ink);
+  border-radius: 1.1em;
+  box-shadow: 0 0.3em 0 var(--ink);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.25em 0.8em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 800;
+}
+
+.double-badge {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 600;
+  border: 0.12em solid var(--ink);
+  animation: wiggle 1.4s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg) scale(1.05); }
+}
+
+/* Entrances */
+@keyframes pop-in {
+  from { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.06); opacity: 1; }
+  to { transform: scale(1); }
+}
+
+@keyframes rise-in {
+  from { transform: translateY(1.2em); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+.pop { animation: pop-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) both; }
+.rise { animation: rise-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+.stagger > * { animation: rise-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.stagger > *:nth-child(2) { animation-delay: 0.07s; }
+.stagger > *:nth-child(3) { animation-delay: 0.14s; }
+.stagger > *:nth-child(4) { animation-delay: 0.21s; }
+.stagger > *:nth-child(5) { animation-delay: 0.28s; }
+.stagger > *:nth-child(6) { animation-delay: 0.35s; }
+.stagger > *:nth-child(7) { animation-delay: 0.42s; }
+.stagger > *:nth-child(8) { animation-delay: 0.49s; }
+.stagger > *:nth-child(n + 9) { animation-delay: 0.55s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

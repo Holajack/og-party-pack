@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#2b1858" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>OG Party Pack · Join</title>
+    <meta name="description" content="Join the OG Party Pack game on your phone." />
+    <link rel="icon" href="/img/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/play.css" />
+  </head>
+  <body data-theme="lobby">
+    <div class="backdrop" aria-hidden="true"><i></i><i></i><i></i></div>
+    <header id="bar" class="bar" hidden></header>
+    <div id="tbar" class="tbar" hidden><i></i></div>
+    <main id="app"></main>
+    <div id="footer"></div>
+    <div id="paused" class="paused" hidden><div class="card pop"><b>Paused</b><span>Hang tight!</span></div></div>
+    <div id="net" class="net" hidden>Reconnecting…</div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/js/play.js"></script>
+  </body>
+</html>
