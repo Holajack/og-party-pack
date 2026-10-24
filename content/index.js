@@ -7,6 +7,7 @@
 //     translation's file has it (the wording always differs).
 //   realornot → optional; only items whose text or note quotes Scripture
 //     need an entry. The rest are the same in every translation.
+//   Any entry can be { skip: true } to leave an item out of that translation.
 // Timeline, drawing and funny prompts don't quote Scripture.
 
 import bluff from './bluff.js';
@@ -41,6 +42,7 @@ function reword(base, wording, required, strict) {
   const out = [];
   for (const item of base) {
     const w = wording[item.id];
+    if (w?.skip) continue;
     if (w) out.push({ ...item, ...w, id: item.id });
     else if (!required) out.push(item);
   }

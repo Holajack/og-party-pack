@@ -143,7 +143,10 @@ async function verify(id) {
   }
   const bookNorm = new Map([...books].map(([b, t]) => [b, norm(t)]));
   for (const it of c.whichbook) {
-    const needle = norm(it.quote.split('…')[0]);
+    const needle = it.quote
+      .split('…')
+      .map(norm)
+      .sort((a, b) => b.length - a.length)[0];
     for (const opt of it.options) if (bookNorm.get(toSourceBook(opt))?.includes(needle)) bad('whichbook', it, `wrong option ${opt} also contains this quote`);
   }
 
