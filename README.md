@@ -77,10 +77,10 @@ Phones can then join from anywhere, on Wi-Fi or cell data.
 
 1. Make a free account at [render.com](https://render.com) and connect your GitHub
    account.
-2. Click **New → Web Service** and pick the `marketmindsglobal` repository.
+2. Click **New → Web Service** and pick the `go-party-pack` repository.
 3. Fill in:
-   - **Branch**: the branch that has the `og-party-pack` folder
-   - **Root Directory**: `og-party-pack`
+   - **Branch**: `main`
+   - **Root Directory**: leave it blank
    - **Runtime / Language**: Node
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
@@ -109,7 +109,8 @@ How the free plan behaves:
 ### Option B: run it on the laptop (no internet needed)
 
 1. Install [Node.js](https://nodejs.org) (the LTS version) on the laptop.
-2. Open a terminal in the `og-party-pack` folder and run:
+2. Download this project (on GitHub: **Code → Download ZIP**, then unzip it),
+   open a terminal in its folder, and run:
 
    ```
    npm install
