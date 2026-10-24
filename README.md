@@ -18,12 +18,27 @@ Made for the **Older, Older and Growing** small group (10–15 players, 20 max).
 | 🎨 **Draw the Word** | Everyone draws a secret Bible story on their phone; everyone else guesses what it is. | 10–15 min |
 | 🍞 **Loaves & Laughs** | Everyone answers the same funny prompt, then votes for the funniest answer. | 10–15 min |
 
-All scripture is quoted from the King James Version (public domain), and every
-quote has been checked word-for-word against the KJV text. The question banks
-hold about 500 items (98 Real or Not, 72 Bluff the Verse, 72 Who Said It,
-96 Which Book, 11 timelines, 85 drawing prompts, 90 funny prompts). The game
-avoids repeating anything until it has used everything in that game, even
-across game nights on the same laptop.
+### Three Bible translations
+
+Pick one in the lobby (the **Bible** switch). The verses in Bluff the Verse, Who
+Said It? and Which Book?, and the quotes in Real or Not?, all change to match.
+
+| Switch | Translation | Reads like |
+| --- | --- | --- |
+| **KJV** | King James Version | the classic |
+| **BSB** | Berean Standard Bible | the ESV or NIV |
+| **NHEB** | New Heart English Bible | the NKJV |
+
+All three are public domain, so there's nothing to license. (The ESV, NIV, NLT and
+NKJV themselves are copyrighted, so these are the closest free stand-ins. No free
+translation reads like the NLT.) `npm run verify` checks every quote, word for
+word, against the real text of each translation.
+
+The question banks hold about 500 items (98 Real or Not, 72 Bluff the Verse,
+72 Who Said It, 96 Which Book, 11 timelines, 85 drawing prompts, 90 funny
+prompts), slightly fewer in the BSB and NHEB where a question doesn't work with
+their wording. The game avoids repeating anything until it has used everything
+in that game, even across game nights on the same laptop.
 
 ## Playing a game night
 
@@ -42,6 +57,7 @@ Before starting, the lobby lets you choose:
 
 - **Game length**: Short, Standard or Long (fewer or more questions per game).
 - **Timers**: Normal, or **Relaxed** (50% more time to answer).
+- **Bible**: KJV, BSB or NHEB (see above).
 
 Big-screen keyboard shortcuts: **Space** = Next, **P** = Pause, **F** = full screen,
 **M** = mute. The buttons in the bottom-right corner do the same things, plus music
@@ -101,6 +117,10 @@ Node.js through the firewall when your computer asks.
 - **Names on screen**: edit `config.js` (pack name, group name, tagline).
 - **Questions**: everything lives in `content/`. Each file has a short comment at the
   top explaining its format; add, edit or remove entries and restart the server.
+  The KJV files are the master list; `content/bsb/` and `content/nheb/` hold the
+  same questions in those translations' wording, matched by `id`. After editing,
+  run `npm run verify` to check every quote against the real Bible text
+  (`node scripts/lookup.js "John 3:16"` shows a verse in all three).
   - `realornot.js`: statements with `real: true/false`, a reference and a note
   - `bluff.js`: a verse split into `before` / `answer` / `after`
   - `whosaid.js` and `whichbook.js`: a quote, the right answer and three wrong ones
@@ -113,6 +133,7 @@ Node.js through the firewall when your computer asks.
 npm install
 npm run dev     # restarts on file changes
 npm test        # plays all 7 games start to finish with 12 bot players
+npm run verify  # checks every quote against the KJV, BSB and NHEB text
 ```
 
 `node test/screenshots.js` drives a real browser as the projector and as one phone
@@ -127,7 +148,10 @@ totals) and sends every screen its own view whenever something changes.
 
 ## Credits
 
-- Scripture: King James Version (public domain).
+- Scripture: King James Version, Berean Standard Bible and New Heart English
+  Bible, all public domain. Texts for checking come from the
+  [scrollmapper/bible_databases](https://github.com/scrollmapper/bible_databases)
+  project.
 - Fonts: Fredoka, Lora and Nunito, under the SIL Open Font License (see
   `public/fonts/`).
 - Sounds and music are generated in the browser. There are no audio files.

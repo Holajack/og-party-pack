@@ -175,7 +175,7 @@ function checkFinal(host, game) {
   if (!Array.isArray(rows) || !rows.length) fail(`${game} has no standings`);
   for (let i = 1; i < rows.length; i++) if (rows[i].score > rows[i - 1].score) fail(`${game} standings out of order`);
   const total = rows.reduce((n, r) => n + r.score, 0);
-  console.log(`  ✓ ${game.padEnd(10)} winner: ${rows[0].name} (${rows[0].score}) · total points ${total} · phases ${host.phases.length}`);
+  console.log(`  ✓ ${game.padEnd(10)} ${s.bible.padEnd(4)} winner: ${rows[0].name} (${rows[0].score}) · total points ${total} · phases ${host.phases.length}`);
   if (total <= 0 && game !== 'laughs') fail(`${game}: nobody scored any points (suspicious)`);
 }
 
@@ -229,6 +229,10 @@ if (host.view.screen.game) fail('a non-leader was able to start a game');
 let late = null;
 for (const [i, game] of GAMES.entries()) {
   host.phases = [];
+  // Rotate through the Bible translations.
+  const translation = ['kjv', 'bsb', 'nheb'][i % 3];
+  host.socket.emit('host:control', { type: 'settings', translation });
+  await waitFor(`${translation} selected`, () => host.view.settings.translation === translation);
   if (i % 2 === 0) leader.socket.emit('player:control', { type: 'start', game });
   else host.socket.emit('host:control', { type: 'start', game });
   await waitFor(`${game} to start`, () => host.view.screen.game === game);
@@ -269,6 +273,7 @@ for (const [i, game] of GAMES.entries()) {
     await waitFor('voting', () => host.view.screen.phase === 'vote' || host.view.screen.phase === 'final');
   }
 
+  if (host.view.screen.bible !== translation.toUpperCase()) fail(`${game} is not using ${translation}`);
   await waitFor(`${game} to finish`, () => host.view.screen.phase === 'final', 180000);
   checkFinal(host, game);
   const expected = { draw: ['draw:draw', 'draw:guess', 'draw:reveal', 'draw:gallery'] }[game] || [];

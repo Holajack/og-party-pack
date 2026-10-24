@@ -4,9 +4,6 @@
 
 import { BaseGame } from './base.js';
 import { shuffle } from '../util.js';
-import realOrNot from '../../content/realornot.js';
-import whoSaid from '../../content/whosaid.js';
-import whichBook from '../../content/whichbook.js';
 
 class TriviaGame extends BaseGame {
   begin() {
@@ -133,7 +130,10 @@ export class RealOrNotGame extends TriviaGame {
     ],
   };
 
-  bank = realOrNot;
+  get bank() {
+    return this.content.realornot;
+  }
+
   counts = { short: 8, standard: 12, long: 16 };
   seconds = 15;
 
@@ -162,7 +162,10 @@ export class WhoSaidGame extends TriviaGame {
     ],
   };
 
-  bank = whoSaid;
+  get bank() {
+    return this.content.whosaid;
+  }
+
   counts = { short: 7, standard: 10, long: 14 };
   seconds = 20;
 
@@ -186,7 +189,10 @@ export class WhichBookGame extends TriviaGame {
     ],
   };
 
-  bank = whichBook;
+  get bank() {
+    return this.content.whichbook;
+  }
+
   counts = { short: 7, standard: 10, long: 14 };
   seconds = 20;
 

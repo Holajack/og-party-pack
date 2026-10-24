@@ -5,9 +5,14 @@
 // host presses Next) the game moves on. The server owns all game state.
 // Screens just render what hostView() / playerView() return.
 
+import { TRANSLATIONS, contentFor } from '../../content/index.js';
+
 export class BaseGame {
   constructor(room) {
     this.room = room;
+    // The Bible translation is fixed for the whole game.
+    this.translation = room.settings.translation;
+    this.content = contentFor(this.translation);
     this.scores = new Map();
     this.gains = new Map();
     this.phase = 'intro';
@@ -145,7 +150,7 @@ export class BaseGame {
   // ---- views -----------------------------------------------------------
 
   baseView() {
-    return { game: this.meta.id, phase: this.phase, seq: this.seq };
+    return { game: this.meta.id, phase: this.phase, seq: this.seq, bible: TRANSLATIONS[this.translation]?.short ?? 'KJV' };
   }
 
   hostView() {

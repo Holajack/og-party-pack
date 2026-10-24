@@ -6,7 +6,6 @@
 
 import { BaseGame } from './base.js';
 import { cleanText, levenshtein, looseKey, normalize, randomId, sample, shuffle } from '../util.js';
-import verses from '../../content/bluff.js';
 
 const MAX_LIE = 40;
 
@@ -25,7 +24,7 @@ export class BluffGame extends BaseGame {
   };
 
   begin() {
-    this.items = this.room.pickFresh('bluff', verses, this.byLength({ short: 4, standard: 6, long: 8 }));
+    this.items = this.room.pickFresh('bluff', this.content.bluff, this.byLength({ short: 4, standard: 6, long: 8 }));
     this.index = -1;
     this.nextVerse();
   }
@@ -96,7 +95,7 @@ export class BluffGame extends BaseGame {
     const options = [...groups.values()];
     // Top up with house lies (this verse's, then other verses') so there are
     // always at least four choices.
-    const others = sample(verses.filter((v) => v !== this.item).flatMap((v) => v.decoys), 6);
+    const others = sample(this.content.bluff.filter((v) => v.id !== this.item.id).flatMap((v) => v.decoys), 6);
     for (const decoy of [...this.item.decoys, ...others]) {
       if (options.length >= 3) break;
       const key = looseKey(decoy);

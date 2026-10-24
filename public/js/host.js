@@ -1,7 +1,7 @@
 // The big screen (projector). Shows the room code, the game menu and every
 // game screen. All game state comes from the server; this file just draws it.
 
-import { $, avatar, createPainter, esc, fmt, keepAwake, msLeft, ordinal, store, syncClock } from './common.js';
+import { $, avatar, createPainter, esc, fmt, keepAwake, msLeft, ordinal, store, syncClock, withBible } from './common.js';
 import { animateStrokes, renderStrokes } from './draw-canvas.js';
 import * as sound from './sound.js';
 
@@ -138,6 +138,7 @@ document.addEventListener('click', (e) => {
   if (act === 'start') return control('start', { game: el.dataset.game });
   if (act === 'length') return control('settings', { length: el.dataset.value });
   if (act === 'relaxed') return control('settings', { relaxed: el.dataset.value === 'on' });
+  if (act === 'bible') return control('settings', { translation: el.dataset.value });
   if (act === 'next') return control('continue', { seq: view?.screen?.seq });
   if (act === 'pause') return control(view?.paused ? 'resume' : 'pause');
   if (act === 'quit') {
@@ -198,6 +199,7 @@ function toggleFullscreen() {
 // ---- sounds & music ----------------------------------------------------
 
 const ANSWER_PHASES = new Set(['question', 'write', 'choose', 'order', 'draw', 'guess', 'vote']);
+const SCRIPTURE_GAMES = new Set(['realornot', 'bluff', 'whosaid', 'whichbook']);
 
 function cues(before, after) {
   if (!before) return music();
@@ -370,7 +372,7 @@ function lobby() {
       </div>
       <div class="settings" data-live="settings">
         <div class="seg">
-          <span>Game length</span>
+          <span>Length</span>
           ${['short', 'standard', 'long']
             .map((l) => `<button class="${view.settings.length === l ? 'on' : ''}" data-act="length" data-value="${l}">${l[0].toUpperCase() + l.slice(1)}</button>`)
             .join('')}
@@ -380,10 +382,22 @@ function lobby() {
           <button class="${view.settings.relaxed ? '' : 'on'}" data-act="relaxed" data-value="off">Normal</button>
           <button class="${view.settings.relaxed ? 'on' : ''}" data-act="relaxed" data-value="on">Relaxed</button>
         </div>
+        <div class="seg">
+          <span>Bible</span>
+          ${view.translations
+            .map((t) => `<button class="${view.settings.translation === t.id ? 'on' : ''}" data-act="bible" data-value="${esc(t.id)}" title="${esc(t.name)}">${esc(t.short)}</button>`)
+            .join('')}
+        </div>
+        ${bibleNote(view.translations, view.settings.translation)}
       </div>
     </section>
     ${tonight}
   </div>`;
+}
+
+function bibleNote(translations, id) {
+  const t = translations.find((x) => x.id === id);
+  return t ? `<p class="bible-note">📖 <b>${esc(t.name)}</b><br />${esc(t.blurb)}</p>` : '';
 }
 
 function winnersLabel(names) {
@@ -419,7 +433,7 @@ function frame(s, body) {
   <div class="game-frame">
     <header class="topbar">
       <div class="tb-game"><span class="tb-emoji">${esc(meta.emoji)}</span>${esc(meta.name)}</div>
-      <div class="tb-mid">${progress ? `<span class="pill">${esc(progress)}</span>` : ''}${s.double && ANSWER_PHASES.has(s.phase) ? ' <span class="double-badge">Double points!</span>' : ''}</div>
+      <div class="tb-mid">${progress ? `<span class="pill">${esc(progress)}</span>` : ''}${SCRIPTURE_GAMES.has(s.game) ? `<span class="pill" title="Bible translation">📖 ${esc(s.bible)}</span>` : ''}${s.double && ANSWER_PHASES.has(s.phase) ? ' <span class="double-badge">Double points!</span>' : ''}</div>
       <div class="tb-join">Join at <b>${esc(joinHost)}</b> · code <b class="tb-code">${esc(view.code)}</b></div>
     </header>
     <section class="stage">${body}</section>
@@ -570,7 +584,7 @@ function trivia(s) {
     ${
       reveal
         ? `<div class="explain card rise">
-            <span class="ref">📖 ${esc(s.ref)}</span>
+            <span class="ref">📖 ${esc(withBible(s.ref, s.bible))}</span>
             ${s.note ? `<p>${esc(s.note)}</p>` : ''}
           </div>
           <div class="gainers">${
@@ -591,7 +605,7 @@ function verseCard(s, fill) {
   const sep = /^[A-Za-z]/.test(s.after) ? ' ' : '';
   return `<div class="verse card pop ${s.before.length + s.after.length > 150 ? 'long' : ''}">
     <p>${esc(s.before)} ${blank}${sep}${after}</p>
-    <span class="ref">${esc(s.ref)}</span>
+    <span class="ref">${esc(withBible(s.ref, s.bible))}</span>
   </div>`;
 }
 

@@ -6,6 +6,7 @@
 //           what modern translations say). A player who types one is asked to
 //           try something sneakier.
 // decoys  → house lies, used only when there aren't enough player answers.
+// The answer must not appear anywhere else in the visible text.
 
 export default [
   { id: 'merry', ref: 'Proverbs 17:22', before: 'A merry heart doeth good like a', answer: 'medicine', after: ': but a broken spirit drieth the bones.', alts: ['medicines', 'medication'], decoys: ['song', 'feast'] },
@@ -67,7 +68,7 @@ export default [
   { id: 'swift', ref: 'Ecclesiastes 9:11', before: 'I returned, and saw under the sun, that the race is not to the', answer: 'swift', after: ', nor the battle to the strong.', alts: ['fast', 'quick', 'fastest'], decoys: ['young', 'proud'] },
   { id: 'eutychus', ref: 'Acts 20:9', before: 'And there sat in a window a certain young man named Eutychus, being fallen into a deep', answer: 'sleep', after: '.', alts: ['slumber'], decoys: ['thought', 'despair'] },
   { id: 'visions', ref: 'Joel 2:28', before: 'Your old men shall dream dreams, your young men shall see', answer: 'visions', after: '.', alts: ['vision'], decoys: ['wonders', 'angels'] },
-  { id: 'foxes', ref: 'Song of Solomon 2:15', before: 'Take us the foxes, the little foxes, that spoil the', answer: 'vines', after: ': for our vines have tender grapes.', alts: ['vine', 'vineyard', 'vineyards'], decoys: ['harvest', 'garden'] },
+  { id: 'foxes', ref: 'Song of Solomon 2:15', before: 'Take us the foxes, the little foxes, that spoil the', answer: 'vines', after: '…', alts: ['vine', 'vineyard', 'vineyards'], decoys: ['harvest', 'garden'] },
   { id: 'nose', ref: 'Proverbs 30:33', before: 'Surely the churning of milk bringeth forth butter, and the wringing of the', answer: 'nose', after: ' bringeth forth blood.', alts: ['noses'], decoys: ['neck', 'hands'] },
   { id: 'mortar', ref: 'Proverbs 27:22', before: 'Though thou shouldest bray a fool in a', answer: 'mortar', after: ' among wheat…', alts: ['mortars'], decoys: ['sack', 'river'] },
   { id: 'bird', ref: 'Ecclesiastes 10:20', before: 'Curse not the king, no not in thy thought; and curse not the rich in thy bedchamber: for a', answer: 'bird', after: ' of the air shall carry the voice.', alts: ['birds'], decoys: ['spirit', 'wind'] },

@@ -2,6 +2,7 @@
 // joined from their phones, the game being played and the night's totals.
 
 import config from '../config.js';
+import { TRANSLATIONS } from '../content/index.js';
 import { gameById, gameMenu } from './games/index.js';
 import { cleanText, randomId, shuffle } from './util.js';
 
@@ -36,7 +37,7 @@ export class Room {
     this.game = null;
     this.totals = new Map();
     this.history = [];
-    this.settings = { length: 'standard', relaxed: false };
+    this.settings = { length: 'standard', relaxed: false, translation: 'kjv' };
     this.used = new Set(used);
     this.usedDirty = false;
     this.timer = null;
@@ -214,6 +215,7 @@ export class Room {
       if (this.game) return;
       if (LENGTHS.includes(action.length)) this.settings.length = action.length;
       if (typeof action.relaxed === 'boolean') this.settings.relaxed = action.relaxed;
+      if (Object.hasOwn(TRANSLATIONS, action.translation)) this.settings.translation = action.translation;
       return this.broadcast();
     }
     if (!this.game) {
@@ -334,6 +336,7 @@ export class Room {
       players: this.playerList(),
       maxPlayers: MAX_PLAYERS,
       settings: this.settings,
+      translations: Object.values(TRANSLATIONS),
       paused: this.paused,
       timer: this.timerView(),
       menu: gameMenu,
@@ -367,7 +370,7 @@ export class Room {
     if (leader) {
       view.leader = this.game
         ? { inGame: true, canContinue: this.game.continuable, final: this.game.phase === 'final' }
-        : { inGame: false, menu: gameMenu, settings: this.settings };
+        : { inGame: false, menu: gameMenu, settings: this.settings, translations: Object.values(TRANSLATIONS) };
     }
     return view;
   }

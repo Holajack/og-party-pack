@@ -46,6 +46,11 @@ export function avatar(p, extra = '') {
   return `<span class="avatar ${extra}" style="--c:${esc(p.color)}" title="${esc(p.name)}">${esc(p.avatar)}</span>`;
 }
 
+// "John 3:16" → "John 3:16 (BSB)". Leaves "Not in the Bible" alone.
+export function withBible(ref, bible) {
+  return /\d+:\d+/.test(ref || '') && bible ? `${ref} (${bible})` : ref || '';
+}
+
 export function fmt(n) {
   return Number(n || 0).toLocaleString('en-US');
 }

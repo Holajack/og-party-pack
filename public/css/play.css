@@ -458,6 +458,13 @@ textarea {
   color: #fff;
 }
 
+.bible-blurb {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
 .confirm {
   width: 100%;
   padding: 18px;

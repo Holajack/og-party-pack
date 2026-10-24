@@ -1,7 +1,7 @@
 // The phone controller. Join a room, then answer, draw, vote and type here
 // while the big screen shows the game.
 
-import { $, avatar, createPainter, esc, fmt, keepAwake, msLeft, ordinal, store, syncClock } from './common.js';
+import { $, avatar, createPainter, esc, fmt, keepAwake, msLeft, ordinal, store, syncClock, withBible } from './common.js';
 import { DrawingPad, PALETTE, WIDTHS } from './draw-canvas.js';
 
 const socket = window.io({ transports: ['websocket', 'polling'] });
@@ -265,6 +265,9 @@ document.addEventListener('click', (e) => {
     case 'relaxed':
       leaderControl({ type: 'settings', relaxed: el.dataset.value === 'on' });
       break;
+    case 'bible':
+      leaderControl({ type: 'settings', translation: el.dataset.value });
+      break;
     case 'picker':
       ui.picker = true;
       render();
@@ -437,6 +440,10 @@ function lobby(s) {
             .map((l) => `<button class="${L.settings.length === l ? 'on' : ''}" data-act="length" data-value="${l}">${l[0].toUpperCase() + l.slice(1)}</button>`)
             .join('')}</div>
           <div class="seg"><button class="${L.settings.relaxed ? '' : 'on'}" data-act="relaxed" data-value="off">Normal timers</button><button class="${L.settings.relaxed ? 'on' : ''}" data-act="relaxed" data-value="on">Relaxed</button></div>
+          <div class="seg">${L.translations
+            .map((t) => `<button class="${L.settings.translation === t.id ? 'on' : ''}" data-act="bible" data-value="${esc(t.id)}">📖 ${esc(t.short)}</button>`)
+            .join('')}</div>
+          <p class="bible-blurb">${esc(L.translations.find((t) => t.id === L.settings.translation)?.name ?? '')}: ${esc(L.translations.find((t) => t.id === L.settings.translation)?.blurb ?? '')}</p>
         </div>
       </section>`;
     }
@@ -519,9 +526,10 @@ function trivia(s) {
     ];
   }
   if (s.phase === 'reveal') {
-    if (!s.answered) return [`r:${s.seq}`, result('⏰', 'Time’s up!', `The answer was <b>${esc(s.correctText)}</b>`, s.ref)];
-    if (s.right) return [`r:${s.seq}`, result('🎉', 'Correct!', `<span class="gain-chip">+${fmt(s.points)}</span>`, s.ref, 'good')];
-    return [`r:${s.seq}`, result('😬', 'Not quite!', `The answer was <b>${esc(s.correctText)}</b>`, s.ref, 'bad')];
+    const ref = withBible(s.ref, s.bible);
+    if (!s.answered) return [`r:${s.seq}`, result('⏰', 'Time’s up!', `The answer was <b>${esc(s.correctText)}</b>`, ref)];
+    if (s.right) return [`r:${s.seq}`, result('🎉', 'Correct!', `<span class="gain-chip">+${fmt(s.points)}</span>`, ref, 'good')];
+    return [`r:${s.seq}`, result('😬', 'Not quite!', `The answer was <b>${esc(s.correctText)}</b>`, ref, 'bad')];
   }
   return ['t-wait', watch('Look at the big screen!')];
 }
@@ -539,7 +547,7 @@ function result(emoji, title, detail, ref, tone = '') {
 
 function verse(s) {
   const sep = /^[A-Za-z]/.test(s.after) ? ' ' : '';
-  return `<div class="mini-verse card"><p>${esc(s.before)} <span class="blank">_____</span>${sep}${esc(s.after)}</p><span class="ref">${esc(s.ref)}</span></div>`;
+  return `<div class="mini-verse card"><p>${esc(s.before)} <span class="blank">_____</span>${sep}${esc(s.after)}</p><span class="ref">${esc(withBible(s.ref, s.bible))}</span></div>`;
 }
 
 function bluff(s) {

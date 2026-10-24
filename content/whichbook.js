@@ -66,7 +66,7 @@ export default [
   { id: 'whirlwind', ref: 'Hosea 8:7', quote: 'For they have sown the wind, and they shall reap the whirlwind.', answer: 'Hosea', options: ['Job', 'Proverbs', 'Galatians'] },
   { id: 'fig-tree', ref: 'Habakkuk 3:17', quote: 'Although the fig tree shall not blossom, neither shall fruit be in the vines.', answer: 'Habakkuk', options: ['Haggai', 'Micah', 'Nahum'] },
   { id: 'singing', ref: 'Zephaniah 3:17', quote: 'He will rejoice over thee with joy; he will rest in his love, he will joy over thee with singing.', answer: 'Zephaniah', options: ['Zechariah', 'Psalms', 'Song of Solomon'] },
-  { id: 'bag-holes', ref: 'Haggai 1:6', quote: 'He that earneth wages earneth wages to put it into a bag with holes.', answer: 'Haggai', options: ['Malachi', 'Proverbs', 'Amos'], note: 'Ancient Israel’s version of “where did my paycheck go?”' },
+  { id: 'bag-holes', ref: 'Haggai 1:6', quote: 'He that earneth wages earneth wages to put it into a bag with holes.', answer: 'Haggai', options: ['Malachi', 'Proverbs', 'Amos'], note: 'Ancient Israel’s version of ‘where did my paycheck go?’' },
   { id: 'brother-beloved', ref: 'Philemon 1:16', quote: 'Not now as a servant, but above a servant, a brother beloved.', answer: 'Philemon', options: ['Titus', '2 Timothy', 'Jude'] },
   { id: 'prosper-health', ref: '3 John 1:2', quote: 'Beloved, I wish above all things that thou mayest prosper and be in health, even as thy soul prospereth.', answer: '3 John', options: ['2 John', 'Jude', 'Philemon'] },
   { id: 'contend', ref: 'Jude 1:3', quote: 'Ye should earnestly contend for the faith which was once delivered unto the saints.', answer: 'Jude', options: ['2 Peter', '2 Timothy', '1 Timothy'] },

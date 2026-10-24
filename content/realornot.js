@@ -1,7 +1,9 @@
 // Real or Not? — is this actually in the Bible?
 // real: true  → it's in there (ref says where)
 // real: false → it isn't, even though a lot of people think it is
-// `note` is shown on the big screen after everyone votes.
+// `note` is shown on the big screen after everyone votes. In notes, “double
+// quotes” are for Scripture (checked by npm run verify); use ‘single quotes’
+// for anything else.
 
 export default [
   // ---------- REAL ----------
@@ -21,7 +23,7 @@ export default [
   { id: 'jael', real: true, text: 'A woman killed an enemy general by driving a tent peg through his head.', ref: 'Judges 4:21', note: 'Jael, with a tent nail and a hammer. The general was Sisera.' },
   { id: 'money-answereth', real: true, text: 'The Bible says “money answereth all things.”', ref: 'Ecclesiastes 10:19', note: 'Context matters, but yes, it says that.' },
   { id: 'merry-heart', real: true, text: 'The Bible says “a merry heart doeth good like a medicine.”', ref: 'Proverbs 17:22', note: 'Laughter is biblical. Keep playing.' },
-  { id: 'unicorns', real: true, text: 'The King James Bible mentions unicorns.', ref: 'Numbers 23:22', note: 'Several times! Modern translations usually say “wild ox.”' },
+  { id: 'unicorns', real: true, text: 'The King James Bible mentions unicorns.', ref: 'Numbers 23:22', note: 'Several times! Modern translations usually say ‘wild ox.’' },
   { id: 'pearl-gates', real: true, text: 'Each gate of the New Jerusalem is made of a single pearl.', ref: 'Revelation 21:21', note: '“Every several gate was of one pearl.” The street is pure gold, too.' },
   { id: 'hosea', real: true, text: 'God told a prophet to marry a woman who would be unfaithful to him.', ref: 'Hosea 1:2', note: 'Hosea’s marriage to Gomer pictured God’s faithful love for unfaithful Israel.' },
   { id: 'esther', real: true, text: 'There’s a book of the Bible that never mentions God by name.', ref: 'Esther', note: 'Esther never names God, though His hand is all over the story. (In the KJV, neither does Song of Solomon.)' },
@@ -64,7 +66,7 @@ export default [
   { id: 'god-helps', real: false, text: '“God helps those who help themselves.”', ref: 'Not in the Bible', note: 'Popularized by Benjamin Franklin’s Poor Richard’s Almanack, and older than that.' },
   { id: 'cleanliness', real: false, text: '“Cleanliness is next to godliness.”', ref: 'Not in the Bible', note: 'Made famous by a John Wesley sermon in the 1700s.' },
   { id: 'money-root', real: false, text: '“Money is the root of all evil.”', ref: '1 Timothy 6:10', note: 'Close! It’s “the LOVE of money is the root of all evil.”' },
-  { id: 'mysterious', real: false, text: '“God works in mysterious ways.”', ref: 'Not in the Bible', note: 'From William Cowper’s 1773 hymn “God Moves in a Mysterious Way.”' },
+  { id: 'mysterious', real: false, text: '“God works in mysterious ways.”', ref: 'Not in the Bible', note: 'From William Cowper’s 1773 hymn ‘God Moves in a Mysterious Way.’' },
   { id: 'this-too', real: false, text: '“This too shall pass.”', ref: 'Not in the Bible', note: 'An old Persian saying, not Scripture.' },
   { id: 'hate-sin', real: false, text: '“Love the sinner, hate the sin.”', ref: 'Not in the Bible', note: 'It traces back to Augustine in the 400s. Gandhi made it popular.' },
   { id: 'more-than-handle', real: false, text: '“God won’t give you more than you can handle.”', ref: '1 Corinthians 10:13', note: 'That verse is about temptation: God “will not suffer you to be tempted above that ye are able.”' },
@@ -84,8 +86,8 @@ export default [
   { id: 'sinai-ark', real: false, text: 'Noah’s ark came to rest on Mount Sinai.', ref: 'Genesis 8:4', note: '“Upon the mountains of Ararat.”' },
   { id: 'first-miracle', real: false, text: 'Jesus’ first miracle was healing a blind man.', ref: 'John 2:11', note: 'It was turning water into wine at a wedding in Cana.' },
   { id: 'horse-entry', real: false, text: 'Jesus rode into Jerusalem on a horse.', ref: 'Matthew 21:7', note: 'He rode a donkey (“an ass, and a colt”), fulfilling Zechariah 9:9.' },
-  { id: 'horns', real: false, text: 'Moses grew horns after meeting with God.', ref: 'Exodus 34:29', note: 'His face shone. “Horns” came from a Latin translation, which is why Michelangelo’s Moses has them.' },
-  { id: 'stable', real: false, text: 'The Bible says Jesus was born in a stable.', ref: 'Luke 2:7', note: 'Mary laid him in a manger “because there was no room for them in the inn.” The word “stable” never appears.' },
+  { id: 'horns', real: false, text: 'Moses grew horns after meeting with God.', ref: 'Exodus 34:29', note: 'His face shone. ‘Horns’ came from a Latin translation, which is why Michelangelo’s Moses has them.' },
+  { id: 'stable', real: false, text: 'The Bible says Jesus was born in a stable.', ref: 'Luke 2:7', note: 'Mary laid him in a manger “because there was no room for them in the inn.” The word ‘stable’ never appears.' },
   { id: 'deadly-sins', real: false, text: 'The Bible lists the “seven deadly sins.”', ref: 'Proverbs 6:16-19', note: 'That list came from later church tradition. Proverbs does list seven things the LORD hates.' },
   { id: 'genesis-satan', real: false, text: 'Genesis calls the serpent in Eden “Satan.”', ref: 'Genesis 3:1', note: 'Genesis only says “the serpent.” Revelation 12:9 makes the connection.' },
   { id: 'st-peter', real: false, text: 'The Bible says Saint Peter guards the pearly gates.', ref: 'Not in the Bible', note: 'The gates of pearl are real (Revelation 21:21). Peter standing guard is a tradition.' },
