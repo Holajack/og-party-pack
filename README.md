@@ -42,9 +42,10 @@ in that game, even across game nights on the same laptop.
 
 ## Playing a game night
 
-1. On the laptop connected to the projector, open the big-screen page:
-   `https://YOUR-ADDRESS/host` (see **Hosting** below). Click
-   **Start game night**, then press **F** for full screen.
+1. On the laptop connected to the projector, go to your game's address (see
+   **Hosting** below) and click **Host on this computer**. (Or bookmark
+   `https://YOUR-ADDRESS/host` to go straight there.) Click **Start game
+   night**, then press **F** for full screen.
 2. Everyone opens `YOUR-ADDRESS` on their phone (or scans the QR code), types the
    room code and their name, and they're in. Tap your avatar to change it.
 3. Click a game on the big screen to start it. The first person who joined is the

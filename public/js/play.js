@@ -319,13 +319,15 @@ function render() {
     $('#footer').innerHTML = '';
     document.body.dataset.theme = 'lobby';
     if (joined && joining) return paint('joining', `<div class="center"><div class="spinner"></div><p>Joining…</p></div>`);
-    return paint(`join:${joinError}`, joinForm(), (root) => {
+    app.classList.toggle('wide', isWide());
+    return paint(`join:${joinError}:${isWide()}`, joinForm(), (root) => {
       const field = root.querySelector(urlCode || saved?.code ? 'input[name=name]' : 'input[name=code]');
       if (field && !matchMedia('(pointer: coarse)').matches) field.focus();
     });
   }
   const s = view.screen;
   document.body.dataset.theme = s.game || 'lobby';
+  app.classList.remove('wide');
   bar.hidden = false;
   bar.innerHTML = `${avatar(view.me, 'sm')}<span class="bar-name">${view.me.leader ? '👑 ' : ''}${esc(view.me.name)}</span><span class="bar-code">${esc(view.code)}</span>`;
 
@@ -351,13 +353,26 @@ function renderFooter(s) {
   }
 }
 
+// The front page: join from a phone, or host on this computer (projector).
+// Phones that arrived by scanning the QR code only see the join form.
 function joinForm() {
   const code = urlCode || saved?.code || '';
-  return `<div class="join">
-    <div class="logo"><span>OG</span></div>
-    <h1>${esc(packName)}</h1>
-    <p class="sub">Bible games with your small group</p>
-    <form id="join-form" class="card join-card" autocomplete="off">
+  const wide = isWide();
+  const hostedHere = Boolean(store.get('og-host'));
+  const hostCard = wide
+    ? `<a class="host-card card" href="/host">
+        <span class="host-icon">🖥️</span>
+        <b>${hostedHere ? 'Continue hosting' : 'Host on this computer'}</b>
+        <span class="host-text">Put the game on the projector or TV. Everyone else joins from their phone.</span>
+        <span class="btn primary big">${hostedHere ? 'Back to the big screen ›' : 'Open the big screen ›'}</span>
+      </a>`
+    : `<a class="host-card card" href="/host">
+        <span class="host-icon">🖥️</span>
+        <span class="host-text"><b>${hostedHere ? 'Continue hosting' : 'Hosting tonight?'}</b>Open the big screen on the computer hooked up to the projector.</span>
+        <span class="host-go">›</span>
+      </a>`;
+  const joinCard = `<form id="join-form" class="card join-card" autocomplete="off">
+      <h2 class="form-title">📱 Join a game</h2>
       <label>Room code
         <input name="code" value="${esc(code)}" maxlength="4" autocapitalize="characters" autocomplete="off" spellcheck="false" inputmode="text" placeholder="ABCD" class="code-input" required />
       </label>
@@ -366,10 +381,18 @@ function joinForm() {
       </label>
       <p id="join-error" class="error" ${joinError ? '' : 'hidden'}>${esc(joinError)}</p>
       <button class="btn primary big" ${joining ? 'disabled' : ''}>${joining ? 'Joining…' : 'Join game'}</button>
-    </form>
-    <p class="fine">The room code is on the big screen.</p>
+      <p class="fine">The room code is on the big screen.</p>
+    </form>`;
+  return `<div class="join">
+    <div class="logo"><span>OG</span></div>
+    <h1>${esc(packName)}</h1>
+    <p class="sub">Bible games with your small group</p>
+    <div class="choices">${wide ? hostCard + joinCard : joinCard + (urlCode ? '' : hostCard)}</div>
   </div>`;
 }
+
+// A computer (not a phone) gets the host option side by side with joining.
+const isWide = () => matchMedia('(min-width: 760px) and (pointer: fine)').matches;
 
 function screen(s) {
   if (!s.game) return lobby(s);
