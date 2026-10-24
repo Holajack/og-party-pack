@@ -48,4 +48,5 @@ export default {
   whale: { note: 'Jonah says “a great fish.” (In Matthew 12:40, Jesus says “the belly of the whale.” Sneaky!)' },
   'age-33': { note: 'It says He was “about thirty years old” when His ministry began. The 33 is worked out from there.' },
   'golden-rule': { note: 'Close idea, different words. The KJV says ‘Whatsoever ye would that men should do to you, do ye even so to them.’ The NHEB says “whatever you desire for men to do to you, you shall also do to them.”' },
+  'twelve-baskets': { note: 'Twelve baskets of broken pieces from five barley loaves.' },
 };

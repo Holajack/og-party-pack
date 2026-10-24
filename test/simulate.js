@@ -229,8 +229,8 @@ if (host.view.screen.game) fail('a non-leader was able to start a game');
 let late = null;
 for (const [i, game] of GAMES.entries()) {
   host.phases = [];
-  // Rotate through the Bible translations.
-  const translation = ['kjv', 'bsb', 'nheb'][i % 3];
+  // Rotate through the Bible translations (TR_OFFSET=1 or 2 shifts which game gets which).
+  const translation = ['kjv', 'bsb', 'nheb'][(i + (Number(process.env.TR_OFFSET) || 0)) % 3];
   host.socket.emit('host:control', { type: 'settings', translation });
   await waitFor(`${translation} selected`, () => host.view.settings.translation === translation);
   if (i % 2 === 0) leader.socket.emit('player:control', { type: 'start', game });
