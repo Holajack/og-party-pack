@@ -10,8 +10,8 @@ Made for the **Older, Older and Growing** small group (10–15 players, 20 max).
 
 | Game | How it plays | Length |
 | --- | --- | --- |
-| 🤔 **Real or Not?** | A saying or story pops up. Is it really in the Bible? Tap REAL or NOT. | 8–12 min |
-| 🎭 **Bluff the Verse** | A King James verse with a word missing. Type a fake word that could fool everyone, then find the real one. | 12–15 min |
+| 🤔 **Real or Not?** | A saying or story pops up. Tap REAL (the Bible says it), TWISTED (close, but not what it says) or NOT (not in the Bible at all). | 8–12 min |
+| 🎭 **Bluff the Verse** | A Bible verse with a word missing. Type a fake word that could fool everyone, then find the real one. | 12–15 min |
 | 🗣️ **Who Said It?** | A famous line. Pick who actually said it. | 8–12 min |
 | 📖 **Which Book?** | A verse. Pick the book it comes from. | 8–12 min |
 | ⏳ **Timeline** | Tap Bible events into order, earliest first. | 8–12 min |
@@ -34,11 +34,27 @@ NKJV themselves are copyrighted, so these are the closest free stand-ins. No fre
 translation reads like the NLT.) `npm run verify` checks every quote, word for
 word, against the real text of each translation.
 
-The question banks hold about 500 items (98 Real or Not, 72 Bluff the Verse,
-72 Who Said It, 96 Which Book, 11 timelines, 85 drawing prompts, 90 funny
-prompts), slightly fewer in the BSB and NHEB where a question doesn't work with
-their wording. The game avoids repeating anything until it has used everything
-in that game, even across game nights on the same laptop.
+The question banks hold about 900 items: COUNTS_RO Real or Not, COUNTS_BL Bluff the
+Verse, COUNTS_WS Who Said It, COUNTS_WB Which Book, COUNTS_TL timelines, COUNTS_DR drawing
+prompts and COUNTS_LA funny prompts. The BSB and NHEB have one or two fewer where a
+question doesn't work with their wording. The game avoids repeating anything until it
+has used everything in that game, even across game nights on the same laptop.
+
+### How the questions are checked
+
+- **Every quote is the real text.** `npm run verify` compares each verse, word for
+  word, against the KJV, BSB and NHEB, and checks every reference points at real
+  verses.
+- **Real or Not? is about meaning, not just words.** A saying counts as REAL only
+  if the Bible says it. Popular sayings that bend a real verse are TWISTED, and the
+  answer screen shows what the verse actually says. For example, “God won’t give
+  you more than you can handle” is TWISTED: 1 Corinthians 10:13 promises that God
+  won’t let you be *tempted* beyond what you can bear and will give you a way out,
+  and Paul writes of trouble far beyond his strength, so that he would rely on God
+  (2 Corinthians 1:8–9). Sayings with no biblical source at all, like “God helps
+  those who help themselves,” are NOT.
+- **Every note was fact-checked.** Speakers, books, event order and the facts in
+  each answer note were read against the passages they cite.
 
 ## Playing a game night
 
@@ -134,7 +150,8 @@ Node.js through the firewall when your computer asks.
   same questions in those translations' wording, matched by `id`. After editing,
   run `npm run verify` to check every quote against the real Bible text
   (`node scripts/lookup.js "John 3:16"` shows a verse in all three).
-  - `realornot.js`: statements with `real: true/false`, a reference and a note
+  - `realornot.js`: statements with `answer: 'real' | 'twisted' | 'not'`, a reference
+    and a note explaining the answer
   - `bluff.js`: a verse split into `before` / `answer` / `after`
   - `whosaid.js` and `whichbook.js`: a quote, the right answer and three wrong ones
   - `timeline.js`: sets of events listed in Bible order
