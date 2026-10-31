@@ -75,7 +75,7 @@ export default {
   emmaus: { quote: 'Weren’t our hearts burning within us, while he spoke to us along the way, and while he opened the Scriptures to us?' },
   naomi: { quote: 'Do not call me Naomi. Call me Marah.', note: '“Marah” means bitter. She was grieving when she came home to Bethlehem.' },
   'centurion-cross': { quote: 'Truly this was the Son of God.' },
-  'sarah-old': { quote: 'After I have grown old will I have pleasure, my lord being old also?' },
+  'sarah-old': { quote: 'God has made me laugh. Everyone who hears will laugh with me.' },
   dreamer: { quote: 'Behold, this dreamer comes.' },
   jethro: { quote: 'The thing that you do is not good. You will surely wear away, both you, and this people that is with you.' },
   cucumbers: { quote: 'We remember the fish, which we ate in Egypt for nothing; the cucumbers, and the melons, and the leeks, and the onions, and the garlic.' },
