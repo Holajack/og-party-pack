@@ -10,14 +10,13 @@
 
 export default {
   // ---------- REAL ----------
-  'bears': { note: '“Go up, you baldhead!” Elisha did not appreciate it.' },
+  'bears': { note: '“Go up, you baldhead!” Elisha cursed them in the name of the LORD.' },
   'donkey': { note: 'Balaam’s donkey asked, “What have I done to you that you have beaten me these three times?”' },
   'eutychus': { note: 'Paul preached until midnight. Eutychus fell from the third story, and Paul brought him back to life.' },
   'ehud': { note: '“Even the handle sank in after the blade, and Eglon’s fat closed in over it.” Eglon was a king of Moab.' },
   'six-fingers': { note: '“Twenty-four in all.”' },
   'axe-head': { note: 'Elisha threw a stick in the Jordan and “made the iron float.”' },
   'jawbone': { note: '“The fresh jawbone of a donkey.”' },
-  'sundial': { text: 'A shadow went backward ten steps as a sign from God.', note: '“He brought the shadow back the ten steps it had descended on the stairway of Ahaz.” It was a sign to King Hezekiah that he would recover.' },
   'coin-fish': { note: '“You will find a four-drachma coin. Take it and give it to them for My tax and yours.”' },
   'handkerchiefs': { note: '“Handkerchiefs and aprons that had touched him were taken to the sick, and the diseases and evil spirits left them.”' },
   'jael': { note: 'Jael, with a tent peg and a hammer. The general was Sisera.' },
@@ -41,13 +40,14 @@ export default {
   'powers-that-be': { note: 'The KJV says ‘the powers that be are ordained of God.’ The BSB reads “The authorities that exist have been appointed by God.”' },
   'labour-love': { note: '“Your work of faith, your labor of love, and your enduring hope.”' },
   'house-divided': { note: 'Jesus said it first: “If a house is divided against itself, it cannot stand.” Abraham Lincoln quoted it in 1858.' },
-  'sheeps-clothing': { note: 'False prophets “come to you in sheep’s clothing, but inwardly they are ravenous wolves.”' },
+  'sheeps-clothing': { note: 'False prophets “come to you in sheep’s clothing, but inwardly they are ravenous wolves.” (The fable credited to Aesop came much later.)' },
   'eye-for-eye': { text: '“Eye for eye, tooth for tooth” is in the Bible.', note: 'It goes on: “hand for hand, foot for foot.” Jesus addresses it in Matthew 5:38-39.' },
   'mouth-babes': { note: 'The KJV’s ‘Out of the mouth of babes’ gave us the saying. The BSB reads “From the mouths of children and infants.” Jesus quoted it in Matthew 21:16.' },
   'season': { text: '“To everything there is a season” is from the Bible.' },
   'nothing-new': { text: '“There is nothing new under the sun” is from the Bible.' },
   'physician': { text: '“Physician, heal yourself” is in the Bible.' },
-  'meek': { note: '“Blessed are the meek, for they will inherit the earth.”' },
+  'meek': { note: '“Blessed are the meek, for they will inherit the earth.” Jesus was echoing Psalm 37:11.' },
+  'money-root': { note: 'Close! “The love of money is the root of all kinds of evil.”' },
 
   // About the King James wording itself, so they're left out here.
   unicorns: { skip: true, why: 'About the King James wording; modern translations say wild ox.' },

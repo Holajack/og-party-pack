@@ -7,7 +7,7 @@
 
 export default {
   // ---------- REAL ----------
-  bears: { note: '“Go up, you baldhead!” Elisha did not appreciate it.' },
+  bears: { note: '“Go up, you baldhead!” Elisha cursed them in the name of the Lord.' },
   donkey: { note: 'Balaam’s donkey asked, “What have I done to you, that you have struck me these three times?”' },
   ehud: { note: 'It was King Eglon: “the fat closed on the blade, for he didn’t draw the sword out of his body.”' },
   'axe-head': { note: 'Elisha threw a stick in the Jordan and “made the iron float.”' },
@@ -28,18 +28,17 @@ export default {
   'powers-that-be': { note: 'From the KJV’s ‘the powers that be are ordained of God.’ The NHEB says “there is no authority except from God, and those who exist are ordained by God.”' },
   'labour-love': { note: '“Your work of faith and labor of love and patience of hope.”' },
   'house-divided': { note: 'Jesus said it first: “If a house is divided against itself, that house cannot stand.” Abraham Lincoln quoted it in 1858.' },
-  'sheeps-clothing': { note: 'False prophets “come to you in sheep’s clothing, but inwardly are ravening wolves.”' },
+  'sheeps-clothing': { note: 'False prophets “come to you in sheep’s clothing, but inwardly are ravening wolves.” (The fable credited to Aesop came much later.)' },
   'mouth-babes': { note: 'Jesus quoted Psalm 8:2 in Matthew 21:16: “Out of the mouth of babes and nursing babies you have perfected praise.”' },
   season: { text: '“For everything there is a season” is from the Bible.', note: 'The NHEB says “For everything there is a season.” Pete Seeger set the KJV’s ‘To every thing there is a season’ to music, and The Byrds made it a hit.' },
   physician: { text: '“Physician, heal yourself” is in the Bible.' },
-  meek: { note: 'From the KJV’s ‘Blessed are the meek: for they shall inherit the earth.’ The NHEB says “Blessed are the gentle, for they shall inherit the earth.”' },
+  meek: { note: 'From the KJV’s ‘Blessed are the meek: for they shall inherit the earth.’ The NHEB says “Blessed are the gentle, for they shall inherit the earth.” Jesus was echoing Psalm 37:11.' },
+  'money-root': { note: 'Close! “The love of money is a root of all kinds of evil.”' },
 
-  // The NHEB's wording ("she called for a man, and shaved off…") reads as if
-  // she did it herself, so this one would be confusing here.
-  delilah: { skip: true, why: 'The NHEB words Judges 16:19 as if she shaved it herself.' },
 
   // About the King James wording itself, so they're left out here.
   unicorns: { skip: true, why: 'About the King James wording; modern translations say wild ox.' },
-  'jesus-wept': { skip: true, why: 'The statement is about the King James Bible.' },
+  // In the NHEB too, “Jesus wept.” is the shortest verse.
+  'jesus-wept': { text: '“Jesus wept” is the shortest verse in the Bible.' },
   'twelve-baskets': { note: 'Twelve baskets of broken pieces from five barley loaves.' },
 };
