@@ -54,7 +54,7 @@ export default [
   'What Eliab said when little brother David showed up at the battle with snacks',
   'How Solomon kept track of 700 wives’ birthdays',
   'What Naaman grumbled about the Jordan River before he finally got in',
-  'What you tell your neighbor after losing his borrowed axe head in the Jordan',
+  'What you tell the owner after losing his borrowed axe head in the Jordan',
   'What Joseph’s brothers whispered when the silver cup turned up in Benjamin’s sack',
   'A recipe from John the Baptist’s cookbook',
   'What Zechariah wanted to say during the months he couldn’t talk',

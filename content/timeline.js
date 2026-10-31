@@ -266,7 +266,7 @@ export default [
     id: 'pauls-journeys',
     title: 'Paul’s Journeys',
     events: [
-      { text: 'The church in Antioch sends off Paul and Barnabas', ref: 'Acts 13:2-3' },
+      { text: 'The church in Antioch sends Paul and Barnabas off on their first journey', ref: 'Acts 13:2-3' },
       { text: 'A sorcerer on Cyprus is struck blind', ref: 'Acts 13:11' },
       { text: 'A crowd in Lystra thinks Paul and Barnabas are gods', ref: 'Acts 14:11-12' },
       { text: 'Paul and Barnabas split up over John Mark', ref: 'Acts 15:39' },

@@ -109,7 +109,7 @@ export default [
   'Naaman dipping seven times in the Jordan',
   'The valley of dry bones',
   'Baby Jesus in a manger',
-  'Friends lowering a man through the roof',
+  'Four men lowering a paralyzed man through the roof',
   'Nets so full of fish they start to break',
   'The sower scattering seed',
   'Jesus blessing the little children',
