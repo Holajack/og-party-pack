@@ -9,6 +9,9 @@ import { cleanText, levenshtein, looseKey, normalize, randomId, sample, shuffle 
 
 const MAX_LIE = 40;
 
+const NUMBER_WORD = /^(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand)\b/i;
+const isNumberish = (s) => /^\d/.test(String(s).trim()) || NUMBER_WORD.test(String(s).trim());
+
 export class BluffGame extends BaseGame {
   static meta = {
     id: 'bluff',
@@ -17,7 +20,7 @@ export class BluffGame extends BaseGame {
     emoji: '🎭',
     minutes: '12–15',
     rules: [
-      'A King James verse appears with one word missing.',
+      'A Bible verse appears with one word missing.',
       'Type a fake word that sounds real enough to fool everybody.',
       'Then find the real word. Score for finding the truth AND for every friend you fool!',
     ],
@@ -95,7 +98,12 @@ export class BluffGame extends BaseGame {
     const options = [...groups.values()];
     // Top up with house lies (this verse's, then other verses') so there are
     // always at least four choices.
-    const others = sample(this.content.bluff.filter((v) => v.id !== this.item.id).flatMap((v) => v.decoys), 6);
+    // Only borrow fakes of the same kind: numbers for a number, words for a word.
+    const numeric = isNumberish(this.item.answer);
+    const others = sample(
+      this.content.bluff.filter((v) => v.id !== this.item.id).flatMap((v) => v.decoys).filter((d) => isNumberish(d) === numeric),
+      6,
+    );
     for (const decoy of [...this.item.decoys, ...others]) {
       if (options.length >= 3) break;
       const key = looseKey(decoy);

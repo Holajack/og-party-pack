@@ -72,3 +72,7 @@ export function contentFor(translation, { strict = false } = {}) {
 }
 
 export const loadContent = async (translation) => contentFor(translation, { strict: true });
+
+// For the quote checker: the KJV master lists and each translation's raw wording.
+export const BASE = { bluff, whosaid, whichbook, realornot, timeline, draw, laughs };
+export const wordingFor = (translation) => WORDING[translation] ?? null;

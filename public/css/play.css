@@ -670,9 +670,9 @@ textarea {
 }
 
 .answers.ron {
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   flex: 1;
-  min-height: 300px;
+  min-height: 330px;
 }
 
 .ans {
@@ -705,27 +705,34 @@ textarea {
 .ans.c3 { background: var(--c-d); }
 
 .ans.real,
+.ans.twisted,
 .ans.not {
   flex-direction: column;
   justify-content: center;
-  gap: 2px;
-  font-size: 40px;
+  gap: 0;
+  font-size: 30px;
   text-align: center;
+  line-height: 1.1;
 }
 
 .ans.real b,
+.ans.twisted b,
 .ans.not b {
-  font-size: 40px;
+  font-size: 32px;
   letter-spacing: 0.04em;
 }
 
 .ans.real small,
+.ans.twisted small,
 .ans.not small {
-  font-size: 18px;
-  margin-top: -4px;
+  font-size: 15px;
+  margin-top: 2px;
+  font-family: var(--body);
+  font-weight: 800;
 }
 
 .ans.real { background: #16a34a; }
+.ans.twisted { background: #d97706; }
 .ans.not { background: #e11d48; }
 
 .ans .letter,

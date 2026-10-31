@@ -525,11 +525,11 @@ function trivia(s) {
     const picked = s.picked ?? ui.sentAnswer;
     const isRon = s.game === 'realornot';
     if (picked != null) {
-      const label = isRon ? (picked === 0 ? 'REAL' : 'NOT in the Bible') : s.choices[picked];
+      const label = isRon ? ['REAL', 'TWISTED', 'NOT in the Bible'][picked] : s.choices[picked];
       return [`q:${s.seq}:locked`, sent('Locked in!', `You picked <b>${esc(label)}</b>`)];
     }
     const quote = isRon ? esc(s.prompt) : `“${esc(s.prompt.replace(/[.,;:]$/, ''))}”`;
-    const ask = { realornot: 'Is this in the Bible?', whosaid: 'Who said it?', whichbook: 'Which book?' }[s.game];
+    const ask = { realornot: 'Real, twisted, or not?', whosaid: 'Who said it?', whichbook: 'Which book?' }[s.game];
     return [
       `q:${s.seq}`,
       `<div class="question">
@@ -540,7 +540,7 @@ function trivia(s) {
           ${s.choices
             .map((c, i) =>
               isRon
-                ? `<button class="ans ${i === 0 ? 'real' : 'not'}" data-act="answer" data-i="${i}">${i === 0 ? '✅<b>REAL</b>' : '❌<b>NOT</b><small>in the Bible</small>'}</button>`
+                ? `<button class="ans ${['real', 'twisted', 'not'][i]}" data-act="answer" data-i="${i}">${['✅<b>REAL</b><small>The Bible says it</small>', '🌀<b>TWISTED</b><small>Close, but not what it says</small>', '❌<b>NOT</b><small>Not in the Bible at all</small>'][i]}</button>`
                 : `<button class="ans c${i}" data-act="answer" data-i="${i}"><span class="letter">${LETTERS[i]}</span><span>${esc(c)}</span></button>`,
             )
             .join('')}

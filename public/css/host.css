@@ -920,13 +920,19 @@ kbd {
 .choice.c3 { background: var(--c-d); }
 
 .choice.real,
+.choice.twisted,
 .choice.not {
   justify-content: center;
   min-height: 5.5rem;
-  font-size: 2.3rem;
+  font-size: 2.1rem;
+}
+
+.choices.n3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .choice.real { background: #16a34a; }
+.choice.twisted { background: #d97706; }
 .choice.not { background: #e11d48; }
 
 .choice.not small {
