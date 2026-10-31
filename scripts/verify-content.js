@@ -10,7 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { TRANSLATIONS, loadContent } from '../content/index.js';
+import { BASE, TRANSLATIONS, loadContent, wordingFor } from '../content/index.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const CACHE = path.join(ROOT, '.bible-cache');
@@ -61,6 +61,36 @@ function lookup(bible, ref) {
   return out.join(' ');
 }
 
+// Every passage a ref names, e.g. "Daniel 3 & 6", "Matthew 2:1-11; Luke 2:16",
+// "Genesis 37:5-10". Returns [{ book, chapter, from, to }] or null if unreadable.
+function passages(ref) {
+  const out = [];
+  for (const part of String(ref).split(';')) {
+    const m = /^\s*((?:[123] )?[A-Za-z][A-Za-z ]*?)\s+(\d[\d:,&\s–-]*)$/.exec(part);
+    if (!m) return null;
+    const book = toSourceBook(m[1].trim());
+    for (const piece of m[2].split(/[&,]/)) {
+      const p = /^\s*(\d+)(?::(\d+)(?:[–-](\d+))?)?(?:[–-](\d+))?\s*$/.exec(piece);
+      if (!p) return null;
+      if (p[4]) out.push({ book, chapter: Number(p[1]), to: Number(p[4]), chapters: true });
+      else out.push({ book, chapter: Number(p[1]), from: p[2] ? Number(p[2]) : null, to: p[3] ? Number(p[3]) : p[2] ? Number(p[2]) : null });
+    }
+  }
+  return out;
+}
+
+// Problem text if a ref doesn't point at real verses, else null.
+function refProblem(bible, ref) {
+  const list = passages(ref);
+  if (!list || !list.length) return `can't read the reference "${ref}"`;
+  for (const p of list) {
+    const last = p.chapters ? p.to : p.chapter;
+    for (let ch = p.chapter; ch <= last; ch++) if (!bible.has(`${p.book}|${ch}|1`)) return `no chapter ${p.book} ${ch} (in "${ref}")`;
+    if (!p.chapters && p.from != null) for (let v = p.from; v <= p.to; v++) if (!bible.has(`${p.book}|${p.chapter}|${v}`)) return `no verse ${p.book} ${p.chapter}:${v} (in "${ref}")`;
+  }
+  return null;
+}
+
 function chapterText(bible, ref) {
   const m = /^(.+?)\s+(\d+)/.exec(ref.trim());
   if (!m) return '';
@@ -97,13 +127,35 @@ async function verify(id) {
   const problems = [];
   const bad = (game, item, msg) => problems.push(`[${id} ${game}] ${item.id}: ${msg}`);
 
-  // Quotes shown in notes must come from the ref's chapter (or a ref the note names).
-  const checkNote = (game, item) => {
-    for (const bit of quotedBits(item.note)) {
-      const pool = [chapterText(bible, item.ref), ...refsIn(item.note).map((r) => chapterText(bible, r))].join(' ');
-      if (!pool || !contains(pool, bit)) bad(game, item, `note quote not found in ${item.ref}: “${bit}”`);
+  // Quotes shown in notes (and Real or Not statements) must come from a
+  // chapter the item's ref names, or a ref the note itself names.
+  const chaptersOf = (ref) =>
+    (passages(ref) ?? []).flatMap((p) => {
+      const out = [];
+      for (let ch = p.chapter; ch <= (p.chapters ? p.to : p.chapter); ch++) out.push(chapterText(bible, `${p.book} ${ch}`));
+      return out;
+    });
+  const checkQuotes = (game, item, field) => {
+    for (const bit of quotedBits(item[field])) {
+      const pool = [...chaptersOf(item.ref), ...refsIn(item.note).map((r) => chapterText(bible, r))].join(' ');
+      if (!pool || !contains(pool, bit)) bad(game, item, `${field} quote not found in ${item.ref}: “${bit}”`);
     }
   };
+  const checkNote = (game, item) => checkQuotes(game, item, 'note');
+
+  // Every KJV question must also exist in this translation, unless it's
+  // skipped on purpose (with a reason).
+  const wording = wordingFor(id);
+  if (wording) {
+    for (const game of ['bluff', 'whosaid', 'whichbook']) {
+      for (const item of BASE[game]) {
+        const w = wording[game][item.id];
+        if (!w) bad(game, item, `has no ${TRANSLATIONS[id].short} wording`);
+        else if (w.skip && !w.why) bad(game, item, 'is skipped without a reason (add why: "...")');
+      }
+    }
+    for (const [key, w] of Object.entries(wording.realornot)) if (w.skip && !w.why) bad('realornot', { id: key }, 'is skipped without a reason (add why: "...")');
+  }
 
   for (const it of c.bluff) {
     const joined = `${it.before} ${it.answer}${/^[A-Za-z]/.test(it.after) ? ' ' : ''}${it.after}`;
@@ -150,7 +202,33 @@ async function verify(id) {
     for (const opt of it.options) if (bookNorm.get(toSourceBook(opt))?.includes(needle)) bad('whichbook', it, `wrong option ${opt} also contains this quote`);
   }
 
-  for (const it of c.realornot) checkNote('realornot', it);
+  const ANSWERS = ['real', 'twisted', 'not'];
+  for (const it of c.realornot) {
+    if (!ANSWERS.includes(it.answer)) bad('realornot', it, `answer must be one of ${ANSWERS.join(', ')}`);
+    if (!it.note) bad('realornot', it, 'needs a note explaining the answer');
+    const readable = passages(it.ref);
+    if (it.answer !== 'not' || readable) {
+      const p = refProblem(bible, it.ref);
+      if (p) bad('realornot', it, p);
+    }
+    checkNote('realornot', it);
+    // A real statement that quotes Scripture must quote it exactly. (Twisted
+    // and not-in-the-Bible statements quote sayings, so they can't match.)
+    if (it.answer === 'real') checkQuotes('realornot', it, 'text');
+  }
+
+  for (const deck of c.timeline) {
+    for (const e of deck.events) {
+      const p = refProblem(bible, e.ref);
+      if (p) problems.push(`[${id} timeline] ${deck.id}: ${p}`);
+    }
+  }
+
+  for (const [game, list] of Object.entries(c)) {
+    const keys = list.map((x) => (typeof x === 'string' ? x : x.id));
+    const dupes = keys.filter((k, i) => keys.indexOf(k) !== i);
+    if (dupes.length) problems.push(`[${id} ${game}] duplicate entries: ${[...new Set(dupes)].join(', ')}`);
+  }
 
   const counts = Object.fromEntries(Object.entries(c).map(([k, v]) => [k, v.length]));
   console.log(`${TRANSLATIONS[id].short}: ${JSON.stringify(counts)}`);

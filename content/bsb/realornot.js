@@ -1,7 +1,7 @@
 // Real or Not? in the Berean Standard Bible (BSB), keyed by the id of the KJV
 // item in ../realornot.js. Only items whose text or note quotes Scripture in
-// KJV wording are here; the rest are the same in every translation. Whether a
-// statement is real never changes.
+// KJV wording are here; the rest are the same in every translation. The answer
+// (real, twisted or not) never changes.
 //
 // Statements about where a saying comes from (‘the powers that be’) are true
 // because of the KJV, so they keep their text; the note gives the BSB wording.
@@ -47,26 +47,10 @@ export default {
   'season': { text: '“To everything there is a season” is from the Bible.' },
   'nothing-new': { text: '“There is nothing new under the sun” is from the Bible.' },
   'physician': { text: '“Physician, heal yourself” is in the Bible.' },
-  'meek': { text: 'The Bible says the meek “will inherit the earth.”', note: '“Blessed are the meek, for they will inherit the earth.”' },
+  'meek': { note: '“Blessed are the meek, for they will inherit the earth.”' },
 
-  // ---------- NOT ----------
-  'money-root': { note: 'Close! It’s “the LOVE of money is the root of all kinds of evil.”' },
-  'more-than-handle': { note: 'That verse is about temptation: God “will not let you be tempted beyond what you can bear.”' },
-  'spare-rod': { note: 'The Bible says “He who spares the rod hates his son.” The catchy version is from a 1663 poem.' },
-  'magi-manger': { note: 'They came “to the house.” The visitors at the manger were the shepherds (Luke 2:16).' },
-  'two-by-two': { note: 'Clean animals went in by “seven pairs.”' },
-  'lion-lamb': { note: 'It’s the wolf that “will live with the lamb.” The leopard “will lie down with the goat.”' },
-  'delilah': { note: '“She called a man to shave off the seven braids of his head.”' },
-  'paul-horse': { note: '“He fell to the ground.” No horse is ever mentioned.' },
-  'sinai-ark': { note: '“On the mountains of Ararat.”' },
-  'horse-entry': { note: 'He rode a donkey (“the donkey and the colt”), fulfilling Zechariah 9:9.' },
-  'horns': { note: 'His face was radiant. ‘Horns’ came from a Latin translation, which is why Michelangelo’s Moses has them.' },
-  'whale': { note: 'Jonah says “a great fish.” (In the KJV, Jesus’ words in Matthew 12:40 say ‘whale’s belly.’ Sneaky!)' },
-  'age-33': { note: 'It says He was “about thirty years old” when His ministry began. The 33 is worked out from there.' },
-  'angels-sang': { note: 'The heavenly host was “praising God and saying.” It never says they sang.' },
-  'seven-loaves': { note: 'Five loaves and two fish. The seven loaves fed the 4,000 (Mark 8).' },
-  'ten-lepers': { note: 'Only one came back, a Samaritan. “Where then are the other nine?”' },
-  'twice': { note: 'Three times, before the rooster crowed.' },
-  'golden-rule': { note: 'Close idea, different words. The KJV says ‘Whatsoever ye would that men should do to you, do ye even so to them.’ The BSB comes closer: “Do to others as you would have them do to you.”' },
+  // About the King James wording itself, so they're left out here.
+  unicorns: { skip: true, why: 'About the King James wording; modern translations say wild ox.' },
+  'jesus-wept': { skip: true, why: 'The statement is about the King James Bible.' },
   'twelve-baskets': { note: 'Twelve baskets of pieces from five barley loaves.' },
 };

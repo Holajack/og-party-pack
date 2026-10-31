@@ -1,7 +1,7 @@
 // Real or Not? in the New Heart English Bible (public domain). Keyed by the
 // KJV item's id (see ../realornot.js); these fields replace the KJV ones.
-// Only items whose text or note quotes Scripture need an entry. Whether an
-// item is real never changes. In notes, “double quotes” are NHEB Scripture
+// Only items whose text or note quotes Scripture need an entry. The answer
+// (real, twisted or not) never changes. In notes, “double quotes” are NHEB Scripture
 // (checked by npm run verify); ‘single quotes’ are for anything else,
 // including KJV wording.
 
@@ -30,23 +30,16 @@ export default {
   'house-divided': { note: 'Jesus said it first: “If a house is divided against itself, that house cannot stand.” Abraham Lincoln quoted it in 1858.' },
   'sheeps-clothing': { note: 'False prophets “come to you in sheep’s clothing, but inwardly are ravening wolves.”' },
   'mouth-babes': { note: 'Jesus quoted Psalm 8:2 in Matthew 21:16: “Out of the mouth of babes and nursing babies you have perfected praise.”' },
-  season: { note: 'The NHEB says “For everything there is a season.” Pete Seeger set the KJV’s ‘To every thing there is a season’ to music, and The Byrds made it a hit.' },
+  season: { text: '“For everything there is a season” is from the Bible.', note: 'The NHEB says “For everything there is a season.” Pete Seeger set the KJV’s ‘To every thing there is a season’ to music, and The Byrds made it a hit.' },
   physician: { text: '“Physician, heal yourself” is in the Bible.' },
-  meek: { text: '“The meek shall inherit the earth” comes from the Bible.', note: 'From the KJV’s ‘Blessed are the meek: for they shall inherit the earth.’ The NHEB says “Blessed are the gentle, for they shall inherit the earth.”' },
+  meek: { note: 'From the KJV’s ‘Blessed are the meek: for they shall inherit the earth.’ The NHEB says “Blessed are the gentle, for they shall inherit the earth.”' },
 
-  // ---------- NOT ----------
-  'money-root': { note: 'Close! It’s “the LOVE of money is a root of all kinds of evil.”' },
-  'more-than-handle': { note: 'That verse is about temptation: God “will not allow you to be tempted above what you are able.”' },
-  'spare-rod': { note: 'The Bible says “One who spares the rod hates his son.” The catchy version is from a 1663 poem.' },
-  'two-by-two': { note: 'Of the clean animals, Noah took “seven pairs.”' },
   // The NHEB's wording ("she called for a man, and shaved off…") reads as if
   // she did it herself, so this one would be confusing here.
-  delilah: { skip: true },
-  'paul-horse': { note: '“He fell on the earth.” No horse is ever mentioned.' },
-  'sinai-ark': { note: '“On Ararat’s mountains.”' },
-  'horse-entry': { note: 'He rode a donkey (“the donkey and the colt”), fulfilling Zechariah 9:9.' },
-  whale: { note: 'Jonah says “a great fish.” (In Matthew 12:40, Jesus says “the belly of the whale.” Sneaky!)' },
-  'age-33': { note: 'It says He was “about thirty years old” when His ministry began. The 33 is worked out from there.' },
-  'golden-rule': { note: 'Close idea, different words. The KJV says ‘Whatsoever ye would that men should do to you, do ye even so to them.’ The NHEB says “whatever you desire for men to do to you, you shall also do to them.”' },
+  delilah: { skip: true, why: 'The NHEB words Judges 16:19 as if she shaved it herself.' },
+
+  // About the King James wording itself, so they're left out here.
+  unicorns: { skip: true, why: 'About the King James wording; modern translations say wild ox.' },
+  'jesus-wept': { skip: true, why: 'The statement is about the King James Bible.' },
   'twelve-baskets': { note: 'Twelve baskets of broken pieces from five barley loaves.' },
 };

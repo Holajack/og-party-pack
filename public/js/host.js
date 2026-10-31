@@ -199,6 +199,11 @@ function toggleFullscreen() {
 
 const ANSWER_PHASES = new Set(['question', 'write', 'choose', 'order', 'draw', 'guess', 'vote']);
 const SCRIPTURE_GAMES = new Set(['realornot', 'bluff', 'whosaid', 'whichbook']);
+const RON = [
+  { cls: 'real', label: '✅ REAL' },
+  { cls: 'twisted', label: '🌀 TWISTED' },
+  { cls: 'not', label: '❌ NOT <small>in the Bible</small>' },
+];
 
 function cues(before, after) {
   if (!before) return music();
@@ -555,15 +560,15 @@ function trivia(s) {
   const isRon = s.game === 'realornot';
   const reveal = s.phase === 'reveal';
   const quote = isRon ? esc(s.prompt) : `“${esc(s.prompt.replace(/[.,;:]$/, ''))}”`;
-  const ask = { realornot: 'Is this in the Bible?', whosaid: 'Who said it?', whichbook: 'Which book is it from?' }[s.game];
+  const ask = { realornot: 'Real, twisted, or not in the Bible?', whosaid: 'Who said it?', whichbook: 'Which book is it from?' }[s.game];
   const choices = s.choices
     .map((c, i) => {
       const cls = reveal ? (i === s.correct ? 'right' : 'wrong') : '';
-      const label = isRon ? (i === 0 ? '✅ REAL' : '❌ NOT <small>in the Bible</small>') : esc(c);
+      const label = isRon ? RON[i].label : esc(c);
       const pickers = reveal
         ? `<span class="pickers">${s.pickers[i].map((p) => avatar(p, 'sm')).join('')}</span>`
         : '';
-      return `<div class="choice ${isRon ? (i === 0 ? 'real' : 'not') : `c${i}`} ${cls}">
+      return `<div class="choice ${isRon ? RON[i].cls : `c${i}`} ${cls}">
         ${isRon ? '' : `<span class="letter">${LETTERS[i]}</span>`}
         <span class="c-text">${label}</span>
         ${pickers}

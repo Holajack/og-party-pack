@@ -7,10 +7,13 @@ import { shuffle } from '../util.js';
 
 class TriviaGame extends BaseGame {
   begin() {
-    const items = this.room.pickFresh(this.meta.id, this.bank, this.byLength(this.counts));
-    this.questions = items.map((item) => this.buildQuestion(item));
+    this.questions = this.pickItems(this.byLength(this.counts)).map((item) => this.buildQuestion(item));
     this.index = -1;
     this.nextQuestion();
+  }
+
+  pickItems(n) {
+    return this.room.pickFresh(this.meta.id, this.bank, n);
   }
 
   get question() {
@@ -115,17 +118,18 @@ class TriviaGame extends BaseGame {
 }
 
 const quickRules = 'Faster right answers score more. The last one is worth double!';
+const ANSWERS = ['real', 'twisted', 'not'];
 
 export class RealOrNotGame extends TriviaGame {
   static meta = {
     id: 'realornot',
     name: 'Real or Not?',
-    tagline: 'Is that really in the Bible?',
+    tagline: 'Real, twisted, or not in the Bible at all?',
     emoji: '🤔',
     minutes: '8–12',
     rules: [
-      'A saying or a story pops up on the big screen.',
-      'Tap REAL if it’s in the Bible, or NOT if it isn’t.',
+      'A saying or a Bible story pops up on the big screen.',
+      'REAL: the Bible says it. TWISTED: close to a real verse or story, but not what it actually says. NOT: not in the Bible at all.',
       quickRules,
     ],
   };
@@ -137,11 +141,20 @@ export class RealOrNotGame extends TriviaGame {
   counts = { short: 8, standard: 12, long: 16 };
   seconds = 15;
 
+  // A good mix every game: about 45% real, 35% twisted, 20% not.
+  pickItems(n) {
+    const twisted = Math.round(n * 0.35);
+    const not = Math.round(n * 0.2);
+    const want = { real: n - twisted - not, twisted, not };
+    const picked = ANSWERS.flatMap((a) => this.room.pickFresh(this.meta.id, this.bank.filter((x) => x.answer === a), want[a]));
+    return shuffle(picked);
+  }
+
   buildQuestion(item) {
     return {
       prompt: item.text,
-      choices: ['Real', 'Not in the Bible'],
-      correct: item.real ? 0 : 1,
+      choices: ['Real', 'Twisted', 'Not in the Bible'],
+      correct: ANSWERS.indexOf(item.answer),
       ref: item.ref,
       note: item.note,
     };
@@ -156,7 +169,7 @@ export class WhoSaidGame extends TriviaGame {
     emoji: '🗣️',
     minutes: '8–12',
     rules: [
-      'A famous line from the King James Bible appears.',
+      'A famous line from the Bible appears.',
       'Pick who actually said it.',
       'Watch out for sneaky look-alikes! ' + quickRules,
     ],
@@ -183,7 +196,7 @@ export class WhichBookGame extends TriviaGame {
     emoji: '📖',
     minutes: '8–12',
     rules: [
-      'A verse from the King James Bible appears.',
+      'A verse from the Bible appears.',
       'Pick which book of the Bible it comes from.',
       quickRules,
     ],

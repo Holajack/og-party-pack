@@ -17,7 +17,7 @@ export class BluffGame extends BaseGame {
     emoji: '🎭',
     minutes: '12–15',
     rules: [
-      'A King James verse appears with one word missing.',
+      'A Bible verse appears with one word missing.',
       'Type a fake word that sounds real enough to fool everybody.',
       'Then find the real word. Score for finding the truth AND for every friend you fool!',
     ],

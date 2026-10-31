@@ -10,6 +10,7 @@
 // The answer must not appear anywhere else in the visible text.
 
 export default {
+  iron: { skip: true, why: 'The BSB reads “As iron sharpens iron, so one man sharpens another” — no good word to blank.' },
   'merry': { before: 'A joyful heart is good', answer: 'medicine', after: ', but a broken spirit dries up the bones.', alts: ['medicines', 'medication', 'remedy', 'cure'], decoys: ['company', 'exercise'] },
   'dog-vomit': { before: 'As a', answer: 'dog', after: ' returns to its vomit, so a fool repeats his folly.', alts: ['dogs', 'hound', 'hounds', 'puppy'], decoys: ['sow', 'raven'] },
   'housetop': { before: 'Better to live on a corner of the', answer: 'roof', after: ' than to share a house with a quarrelsome wife.', alts: ['roofs', 'rooftop', 'rooftops', 'housetop', 'housetops', 'house top'], decoys: ['stable', 'cellar'] },
